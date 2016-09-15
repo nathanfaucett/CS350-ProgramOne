@@ -1,4 +1,3 @@
-rm Producer.class
-rm Consumer.class
-rm BoundedBuffer.class
-rm Server.class
+if [ -d "./build" ]; then
+  rm -r ./build
+fi
