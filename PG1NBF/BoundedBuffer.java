@@ -1,9 +1,7 @@
 /**
  * BoundedBuffer.java
  *
- * This program implements the bounded buffer using shared memory.
- * Note that this solution is NOT thread-safe. It will be used
- * to illustrate thread safety using Java synchronization in Chapter 7.
+ * bounded buffer using shared memory. NOT thread-safe
  *
  * @author Nathan Faucett
  * @version September 15, 2016
@@ -14,16 +12,15 @@ import java.util.*;
 public class BoundedBuffer {
     public BoundedBuffer() {
         // buffer is initially empty
-        count = 0; in = 0;
+        count = 0;
+        in = 0;
         out = 0;
-
         buffer = new Object[BUFFER_SIZE];
     }
 
     // producer calls this method
     public void enter(Object item) {
-        while (count == BUFFER_SIZE)
-        ; // do nothing
+        while (count == BUFFER_SIZE); // do nothing
 
         // add an item to the buffer
         ++count;
@@ -36,9 +33,9 @@ public class BoundedBuffer {
 
     // consumer calls this method
     public Object remove() {
-        Object item;
-
         while (count == 0); // do nothing
+
+        Object item;
 
         // remove an item from the buffer
         --count;

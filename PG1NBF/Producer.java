@@ -1,7 +1,8 @@
 /**
  * Producer.java
  *
- * This is the producer thread for the bounded buffer problem.
+ * This is the producer thread for generating random numbers to send
+ * to the consumer
  *
  * @author Nathan Faucett
  * @version September 15, 2016
@@ -19,7 +20,7 @@ public class Producer extends Thread {
         int value;
 
         while (true) {
-            int sleeptime = (int) (7 * Math.random()) + 1;
+            int sleeptime = (int) (1 + (7 * Math.random()));
 
             System.out.println("Producer "+ name +" sleeping for " + sleeptime + " seconds");
 
@@ -28,7 +29,7 @@ public class Producer extends Thread {
             } catch (InterruptedException e) {}
 
             // produce an item & enter it into the buffer
-            value = (int) (56000 * Math.random()) + 4000;
+            value = (int) (4000 + (56000 * Math.random()));
             System.out.println("Producer "+ name +" produced " + value);
 
             buffer.enter(value);

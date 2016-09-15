@@ -1,7 +1,8 @@
 /**
  * Consumer.java
  *
- * This is the consumer thread for the bounded buffer problem.
+ * This is the consumer thread for calculating if numbers pulled
+ * from the buffer are prime are not
  *
  * @author Nathan Faucett
  * @version September 15, 2016
@@ -19,7 +20,7 @@ public class Consumer extends Thread {
         int value;
 
         while (true) {
-            int sleeptime = (int)(7 * Math.random()) + 1;
+            int sleeptime = (int) (1 + (7 * Math.random()));
 
             System.out.println("Consumer "+ name +" sleeping for " + sleeptime + " seconds");
 
@@ -30,14 +31,19 @@ public class Consumer extends Thread {
             // consume an item from the buffer
             System.out.println("Consumer "+ name +" wants to consume");
 
-            value = (int) buffer.remove();
-            System.out.println(
-                "Consumer "+ name +" consumed " + value +
-                " and IT IS" + (isPrime(value) ? " " : " NOT ") + "A PRIME"
-            );
+            Object tmp = buffer.remove();
+            if (tmp != null) {
+                value = (int) tmp;
+
+                System.out.println(
+                    "Consumer "+ name +" consumed " + value +
+                    " and IT IS" + (isPrime(value) ? " " : " NOT ") + "A PRIME!"
+                );
+            }
         }
     }
 
+    /* checks if a number other than 1 or it x goes into x */
     private boolean isPrime(int x) {
         for (int i = 2; i < x; i++) {
             if (x % i == 0) {

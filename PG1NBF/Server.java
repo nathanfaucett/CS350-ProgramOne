@@ -1,7 +1,8 @@
 /**
  * Server.java
  *
- * This creates the buffer and the producer and consumer threads.
+ * This creates the buffer and the producer and consumer threads
+ * and starts them
  *
  * @author Nathan Faucett
  * @version September 15, 2016
@@ -14,16 +15,16 @@ public class Server {
 
             // now create the producer and consumer threads
 
-            Producer John = new Producer("John", server0);
-            Producer Liz = new Producer("Liz", server1);
+            Producer producer0 = new Producer("John", server0);
+            Producer producer1 = new Producer("Liz", server1);
 
-            Consumer Mary = new Consumer("Mary", server0);
-            Consumer Bert = new Consumer("Bert", server1);
+            Consumer consumer0 = new Consumer("Mary", server0);
+            Consumer consumer1 = new Consumer("Bert", server1);
 
-            John.start();
-            Mary.start();
+            producer0.start();
+            producer1.start();
 
-            Liz.start();
-            Bert.start();
+            consumer0.start();
+            consumer1.start();
         } //main
 } //class
