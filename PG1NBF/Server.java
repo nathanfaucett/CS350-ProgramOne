@@ -3,24 +3,27 @@
  *
  * This creates the buffer and the producer and consumer threads.
  *
- * @author Greg Gagne, Peter Galvin, Avi Silberschatz
- * @version 1.0 - July 15, 1999
- * Copyright 2000 by Greg Gagne, Peter Galvin, Avi Silberschatz
- * Applied Operating Systems Concepts - John Wiley and Sons, Inc.
+ * @author Nathan Faucett
+ * @version September 15, 2016
  */
 
-public class Server
-{
-	public static void main(String args[]) {
-		BoundedBuffer server = new BoundedBuffer();
+public class Server {
+    public static void main(String args[]) {
+            BoundedBuffer server0 = new BoundedBuffer();
+            BoundedBuffer server1 = new BoundedBuffer();
 
-      		// now create the producer and consumer threads
+            // now create the producer and consumer threads
 
-      		Producer producerThread = new Producer(server);
-      		Consumer consumerThread = new Consumer(server);
+            Producer John = new Producer("John", server0);
+            Producer Liz = new Producer("Liz", server1);
 
-      		producerThread.start();
-      		consumerThread.start();
+            Consumer Mary = new Consumer("Mary", server0);
+            Consumer Bert = new Consumer("Bert", server1);
 
-	}//main
-}//class
+            John.start();
+            Mary.start();
+
+            Liz.start();
+            Bert.start();
+        } //main
+} //class

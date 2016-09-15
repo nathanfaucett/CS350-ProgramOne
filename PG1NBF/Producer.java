@@ -3,41 +3,38 @@
  *
  * This is the producer thread for the bounded buffer problem.
  *
- * @author Greg Gagne, Peter Galvin, Avi Silberschatz
- * @version 1.0 - July 15, 1999
- * Copyright 2000 by Greg Gagne, Peter Galvin, Avi Silberschatz
- * Applied Operating Systems Concepts - John Wiley and Sons, Inc.
+ * @author Nathan Faucett
+ * @version September 15, 2016
  */
 
 import java.util.*;
 
-public class Producer extends Thread
-{
-   public Producer(BoundedBuffer b) {
-      buffer = b;
-   }
+public class Producer extends Thread {
+    public Producer(String n, BoundedBuffer b) {
+        buffer = b;
+        name = n;
+    }
 
-   public void run()
-   {
-   Date message;
+    public void run() {
+        int value;
 
-      while (true)
-      {
-         int sleeptime = (int) (BoundedBuffer.NAP_TIME * Math.random()) +1;
+        while (true) {
+            int sleeptime = (int) (7 * Math.random()) + 1;
 
-         System.out.println("Producer sleeping for " + sleeptime + " seconds");
+            System.out.println("Producer "+ name +" sleeping for " + sleeptime + " seconds");
 
-         try { sleep(sleeptime*1000); }
-         catch(InterruptedException e) {}
+            try {
+                sleep(sleeptime * 1000);
+            } catch (InterruptedException e) {}
 
-         // produce an item & enter it into the buffer
-         message = new Date();
-         System.out.println("Producer produced " + message);
+            // produce an item & enter it into the buffer
+            value = (int) (56000 * Math.random()) + 4000;
+            System.out.println("Producer "+ name +" produced " + value);
 
-         buffer.enter(message);
-      }
-   }
+            buffer.enter(value);
+        }
+    }
 
-   private  BoundedBuffer buffer;
-
+    private BoundedBuffer buffer;
+    private String name;
 }

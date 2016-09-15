@@ -3,45 +3,50 @@
  *
  * This is the consumer thread for the bounded buffer problem.
  *
- * @author Greg Gagne, Peter Galvin, Avi Silberschatz
- * @version 1.0 - July 15, 1999
- * Copyright 2000 by Greg Gagne, Peter Galvin, Avi Silberschatz
- * Applied Operating Systems Concepts - John Wiley and Sons, Inc.
+ * @author Nathan Faucett
+ * @version September 15, 2016
  */
 
 import java.util.*;
 
-public class Consumer extends Thread
-{
-   public Consumer(BoundedBuffer b)
-   {
-      buffer = b;
-   }
+public class Consumer extends Thread {
+    public Consumer(String n, BoundedBuffer b) {
+        buffer = b;
+        name = n;
+    }
 
-   public void run()
-   {
-   Date message;
+    public void run() {
+        int value;
 
-     while (true)
-      {
-         int sleeptime = (int) (BoundedBuffer.NAP_TIME * Math.random()) +1;
+        while (true) {
+            int sleeptime = (int)(7 * Math.random()) + 1;
 
-         System.out.println("Consumer sleeping for " + sleeptime + " seconds");
+            System.out.println("Consumer "+ name +" sleeping for " + sleeptime + " seconds");
 
-         try { sleep(sleeptime*1000); }
-         catch(InterruptedException e) {}
+            try {
+                sleep(sleeptime * 1000);
+            } catch (InterruptedException e) {}
 
-         // consume an item from the buffer
-         System.out.println("Consumer wants to consume.");
+            // consume an item from the buffer
+            System.out.println("Consumer "+ name +" wants to consume");
 
-         message = (Date)buffer.remove();
+            value = (int) buffer.remove();
+            System.out.println(
+                "Consumer "+ name +" consumed " + value +
+                " and IT IS" + (isPrime(value) ? " " : " NOT ") + "A PRIME"
+            );
+        }
+    }
 
-         System.out.println("Consumer consumed."+message);
-      }
-   }
+    private boolean isPrime(int x) {
+        for (int i = 2; i < x; i++) {
+            if (x % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-   private  BoundedBuffer buffer;
-
+    private BoundedBuffer buffer;
+    private String name;
 }
-
-
